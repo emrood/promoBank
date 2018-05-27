@@ -14,7 +14,7 @@ public class Historique
     private DateTime date_transaction;
     private int type_transaction;
 
-    public int ID1
+    public int Id
     {
         get
         {

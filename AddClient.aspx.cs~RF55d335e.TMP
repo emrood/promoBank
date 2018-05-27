@@ -1,0 +1,64 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class AddClient : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        ListItem it = new ListItem();
+        DBConnection.comptes.ForEach(x => {
+            it.Text = x.Libele_compte;
+            it.Value =  x.Type_compte.ToString();
+            T_account.DataBind();
+            T_account.Items.Insert(x.Type_compte, it);
+        });
+
+
+    }
+
+
+    protected void registerClient(object sender, EventArgs e)
+    {
+        if (DBConnection.initConnection())
+        {
+            if (DBConnection.registerClient(TBfname.Text, TBlname.Text, TBsexe.Text, int.Parse(TBnif.Text), int.Parse(TBcin.Text), TBadresse.Text, TBtelephone.Text))
+            {
+                DateTime i = DateTime.Now;
+                if(DBConnection.registerAccount(int.Parse(TBnif.Text), int.Parse(TBaccount_type.Text), float.Parse(TBsolde.Text), i))
+                {
+                    info.Text = "Enregistre avec succes";
+                }
+                else
+                {
+                    info.Text = "Register account failed";
+                }
+            }
+            else
+            {
+                info.Text = "Register client failed";
+                info.Visible = false;
+            }
+        }
+        else
+        {
+            info.Text = "Connection failed";
+        }
+
+        info.Visible = true;
+    }
+
+
+    protected void BTSave_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void T_account_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+}

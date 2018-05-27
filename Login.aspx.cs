@@ -11,4 +11,32 @@ public partial class Login : System.Web.UI.Page
     {
 
     }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void getAccountTypes(object sender, EventArgs e)
+    {
+        if (DBConnection.initConnection())
+        {
+            tbInfo.Text = "Connection succes";
+            if (DBConnection.loadAccountTypes())
+            {
+
+                tbInfo.Text = "Data succes";
+            }
+            else
+            {
+                tbInfo.Text = "error getting data";
+            }
+
+        }
+        else
+        {
+            tbInfo.Text = "Connection fail";
+
+        }
+    }
 }

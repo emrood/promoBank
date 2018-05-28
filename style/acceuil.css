@@ -1,3 +1,34 @@
 ﻿body {
 
 }
+
+
+
+#form1{
+    margin-top: 100px;
+    width:auto;
+}
+
+#main_title{
+    text-align: center;
+    margin-top: 50px;
+}
+
+#myMenu{
+    width: 780px;
+    margin: auto;
+}
+
+.btn-primary{
+    margin-right: 20px;
+    width: 150px;
+    border-radius: 10px;
+}
+
+a{
+    color: white;
+}
+
+.btn-primary{
+    margin: auto;
+}

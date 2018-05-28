@@ -16,10 +16,11 @@ public partial class Deposit : System.Web.UI.Page
 
     }
 
+    // Action du boutton pour realiser un depot
     protected void makeDeposit(object sender, EventArgs e)
     {
 
-        //LabelInfo.CssClass = "";
+        LabelInfo.CssClass = "alert alert-danger";
         if ((TB_montant.Text != String.Empty) && (TB_no_compte.Text != String.Empty))
         {
             try
@@ -36,7 +37,7 @@ public partial class Deposit : System.Web.UI.Page
             {
                 if (DBConnection.deposit(compte, montant))
                 {
-                    //LabelInfo.CssClass = "";
+                    LabelInfo.CssClass = "alert alert-success";
                     LabelInfo.Text = "Depot effectué avec succès";
                 }else
                 {

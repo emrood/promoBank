@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -8,14 +9,17 @@ using System.Web.UI.WebControls;
 public partial class History : System.Web.UI.Page
 {
     protected int noCompte;
+    protected StringWriter stringWriter;
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
 
+    //Action du boutton qui va retourner la liste de transaction d'un client
     protected void requestHistory(object sender, EventArgs e)
     {
-        if(TB_no_compte.Text != String.Empty)
+        LabelInfo.CssClass = "alert alert-danger";
+        if (TB_no_compte.Text != String.Empty)
         {
             try
             {
@@ -24,7 +28,33 @@ public partial class History : System.Web.UI.Page
                 {
                     if (DBConnection.loadAccountHistory(noCompte))
                     {
+                        LabelInfo.CssClass = "alert alert-success";
                         LabelInfo.Text = "Succès";
+                        stringWriter = new StringWriter();
+                        using (HtmlTextWriter writer = new HtmlTextWriter(stringWriter))
+                        {
+
+                            writer.AddAttribute(HtmlTextWriterAttribute.Class, "historyResult");
+                            writer.RenderBeginTag(HtmlTextWriterTag.Div); // Begin #1
+
+                            writer.AddAttribute(HtmlTextWriterAttribute.Class, "table-responsive");
+                            writer.RenderBeginTag(HtmlTextWriterTag.Table);
+                            foreach (string s in DBConnection.historyResult)
+                            {
+                                writer.RenderBeginTag(HtmlTextWriterTag.Tr);
+                                writer.AddAttribute(HtmlTextWriterAttribute.Class, "bg-primary");
+                                writer.RenderBeginTag(HtmlTextWriterTag.Td);
+                                writer.Write(s);
+                                writer.RenderEndTag();
+                                writer.RenderEndTag();
+                            }
+                            writer.RenderEndTag();
+                           
+                            writer.RenderEndTag(); // End #1
+
+                        }
+
+                        stringWriter.ToString();
                     }
                     else
                     {
@@ -48,5 +78,10 @@ public partial class History : System.Web.UI.Page
         }
 
         LabelInfo.Visible = true;
+    }
+
+    public void OutputDataRows()
+    {
+        
     }
 }

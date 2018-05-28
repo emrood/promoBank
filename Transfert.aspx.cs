@@ -21,7 +21,7 @@ public partial class Transfert : System.Web.UI.Page
     protected void makeTransfert(object sender, EventArgs e)
     {
 
-        //LabelInfo.CssClass = "";
+        LabelInfo.CssClass = "alert alert-danger";
         if ((TB_montant.Text != String.Empty) && (TB_no_compte1.Text != String.Empty) && (TB_no_compte2.Text != String.Empty))
         {
             try
@@ -39,7 +39,7 @@ public partial class Transfert : System.Web.UI.Page
             {
                 if (DBConnection.whitDrawal(compte1, montant) && DBConnection.deposit(compte2, montant))
                 {
-                    //LabelInfo.CssClass = "";
+                    LabelInfo.CssClass = "alert alert-success";
                     LabelInfo.Text = "Transaction effectué avec succès";
                 }
                 else

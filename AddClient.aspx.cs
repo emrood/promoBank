@@ -16,6 +16,7 @@ public partial class AddClient : System.Web.UI.Page
     // Action du boutton de sauvegarde client
     protected void registerClient(object sender, EventArgs e)
     {
+        info.CssClass = "alert alert-danger";
         if ((T_account.SelectedIndex != 0) && 
             (listSexe.SelectedIndex != 0) && 
             (TBfname.Text != String.Empty) && 
@@ -30,6 +31,7 @@ public partial class AddClient : System.Web.UI.Page
                 DateTime i = DateTime.Now;
                 if(DBConnection.registerAccount(long.Parse(TBnif.Text), T_account.SelectedIndex, float.Parse(TBsolde.Text), i))
                 {
+                    info.CssClass = "alert alert-success";
                     info.Text = "Enregistre avec succes";
                     TBfname.Text = "";
                     TBnif.Text = "";

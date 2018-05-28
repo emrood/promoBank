@@ -2,10 +2,26 @@
     //background-color: aqua;
 }
 
-.lab{
-    margin-right: 20px;
-}
+
 
 .form_container{
-    border: 2px solid blue;
+    width: 1000px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.btn_contain btn-primary{
+    margin: auto;
+}
+
+#BTSave{
+    margin: auto;
+    width: 200px;
+    margin-left: 350px;
+}
+
+
+#titre{
+    margin-top: 20px;
+    text-align: center;
 }

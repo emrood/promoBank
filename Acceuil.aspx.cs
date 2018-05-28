@@ -15,4 +15,35 @@ public partial class Acceuil : System.Web.UI.Page
         DBConnection.loadTransactionType();
        
     }
+
+
+    protected void goToDeposit(object sender, EventArgs e)
+    {
+        Response.Redirect("Deposit.aspx");
+    }
+
+    protected void goToTransfert(object sender, EventArgs e)
+    {
+        Response.Redirect("Transfert.aspx");
+    }
+
+    protected void goToWithdrawal(object sender, EventArgs e)
+    {
+        Response.Redirect("WhitDrawal.aspx");
+    }
+
+    protected void goToHistory(object sender, EventArgs e)
+    {
+        Response.Redirect("History.aspx");
+    }
+
+    protected void goToAddClient(object sender, EventArgs e)
+    {
+        Response.Redirect("AddClient.aspx");
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+
+    }
 }

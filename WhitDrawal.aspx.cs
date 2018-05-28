@@ -20,7 +20,7 @@ public partial class WhitDrawal : System.Web.UI.Page
     protected void makeWhitDrawal(object sender, EventArgs e)
     {
 
-        //LabelInfo.CssClass = "";
+        LabelInfo.CssClass = "alert alert-danger";
         if ((TB_montant.Text != String.Empty) && (TB_no_compte.Text != String.Empty))
         {
             try
@@ -37,7 +37,7 @@ public partial class WhitDrawal : System.Web.UI.Page
             {
                 if (DBConnection.whitDrawal(compte, montant))
                 {
-                    //LabelInfo.CssClass = "";
+                    LabelInfo.CssClass = "alert alert-success";
                     LabelInfo.Text = "Retrait effectué avec succès";
                 }
                 else

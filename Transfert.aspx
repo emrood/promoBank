@@ -5,14 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
      <title>PromoBank</title>
-    <link rel="stylesheet" href="style/addClient.css"/>
+    <link rel="stylesheet" href="style/transfert.css"/>
     <link rel="stylesheet" href="style/bootstrap.css"/>
     <link rel="stylesheet" href="style/bootstrap.min.css"/>
     <link rel="stylesheet" href="style/bootstrap-grid.css"/>
 </head>
 <body>
     <h2>Réaliser un transfert</h2>
-    <div><a href="Acceuil.aspx">Retour a la page d'acceuil</a></div>
+    <div><a href="Acceuil.aspx">Page d'acceuil</a></div>
     <form id="form1" runat="server">
     <div>
             <asp:Label ID="Label1" runat="server" Text="No du compte a crediter: "></asp:Label> 

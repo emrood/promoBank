@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for Client
+/// Class de description de Client
 /// </summary>
 public class Client
 {

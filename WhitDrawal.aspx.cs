@@ -16,6 +16,7 @@ public partial class WhitDrawal : System.Web.UI.Page
 
     }
 
+    //Methode permettant du faire un retrait
     protected void makeWhitDrawal(object sender, EventArgs e)
     {
 

@@ -12,7 +12,7 @@
 </head>
 <body>
     <h2>Réaliser un retrait</h2>
-    <div><a href="Acceuil.aspx">Retour a la page d'acceuil</a></div>
+    <div><a href="Acceuil.aspx">Page d'acceuil</a></div>
     <form id="form1" runat="server">
     <div>
         <div>

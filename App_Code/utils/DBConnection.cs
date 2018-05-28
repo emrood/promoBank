@@ -10,19 +10,20 @@ using MySql.Data.MySqlClient;
 /// </summary>
 public class DBConnection
 {
-    private static MySqlConnection connection;
-    private static MySqlCommand command;
-    private static MySqlDataReader reader;
-    private static String query;
-    public static List<Compte> comptes;
-    public static List<Compte_client> compte_clients;
-    public static List<Historique> histories;
-    public static List<Transaction> transactions;
-    public static List<Client> clients;
-    public static int last_nif;
-    private static float temp_solde;
-    private static int temp_no_compte;
-    private static float final_amount;
+    private static MySqlConnection connection; // Variable de connection avec une DB MySQL
+    private static MySqlCommand command; // variable qui execute les commande SQL
+    private static MySqlDataReader reader; // Variable qui recoit les resultats d'une requete
+    private static String query; // Chaine de caractere qui va contenir les commande de requetes
+    public static List<Compte> comptes; // Liste qui sauvegarder les types de compte existant
+    public static List<Compte_client> compte_clients; // Liste qui va sauvegarde tous les comptes clients
+    public static List<Historique> histories; // Liste qui va sauvegarder l'historique des transactions
+    public static List<Transaction> transactions; // Liste qui sauvegarde les types de transactions existant
+    public static List<Client> clients; // Liste qui sauvegarde tous les clients
+    public static List<string> historyResult; //
+    public static int last_nif; // varaible qui sauvegarde temporairement un nif
+    private static float temp_solde; // Variable qui sauvegarde temporairement le solde d'un compte apres une requete
+    private static int temp_no_compte; // variable qui sauvegarde temprorairement le no d'un compte
+    private static float final_amount; // variable temporaire qui sauvegarde le solde final d'un compte apres depot ou retrait
 
 
     public DBConnection()
@@ -32,6 +33,7 @@ public class DBConnection
         //
     }
 
+    // Methode d'initialisation de la connection
     public static bool initConnection()
     {
        
@@ -86,6 +88,7 @@ public class DBConnection
         
     }
 
+    // Methode retournant la liste des types de compte du DB
     public static bool loadAccountTypes()
     {
         comptes = new List<Compte>();
@@ -185,7 +188,7 @@ public class DBConnection
     }
 
     //Methode pour enregistrer un client
-    public static bool registerClient(string nom, string prenom, string sexe, int nif, int cin, string adresse, string telephone)
+    public static bool registerClient(string nom, string prenom, string sexe, long nif, long cin, string adresse, string telephone)
     {
         query = "INSERT INTO `client`(nom, prenom, sexe, nif, cin, adresse, telephone) VALUES('"+nom+"','" +prenom +"','"+sexe+"',"+nif+ ","+cin+ ",'"+adresse+"','"+telephone+"')";
         try
@@ -204,8 +207,8 @@ public class DBConnection
         }
     }
 
-    // Methode pour enregistrer uun compte
-    public static bool registerAccount(int nif, int type, float solde, DateTime date) {     
+    // Methode pour enregistrer le compte du client
+    public static bool registerAccount(long nif, int type, float solde, DateTime date) {     
         try
         {
             connection = new MySqlConnection(@"Data Source=localhost;port=3309;Initial Catalog=mybank;User Id=root;password=''");
@@ -226,7 +229,7 @@ public class DBConnection
     }
 
 
-    // Methode pour faire un depot
+    // Methode pour faire un depot a partir d'un numero de compte
     public static bool deposit(int compte, float amount)
     {
         
@@ -245,7 +248,7 @@ public class DBConnection
             connection.Close();
             connection.Open();
             if (amount > 0) {
-                //Transaction
+                //enregistrement de la transaction
                 final_amount = amount + temp_solde;
                 query = "UPDATE `compte_client` SET solde = " + final_amount + " WHERE no_compte="+compte+";";
                 command = new MySqlCommand(query, connection);
@@ -313,7 +316,46 @@ public class DBConnection
         }
     }
 
-   
+    // Methode retournant l'historique de transaction d'un compte en banque | utilisation de jointure entre 5 tables differents
+    public static bool loadAccountHistory(int compte)
+    {
+        
+        historyResult = new List<string>();
+        query = "SELECT client.nom, client.prenom, client.nif, transaction.libele_transaction, historique.montant, historique.date_transaction" +
+            " FROM client, compte_client, historique, transaction, compte" + 
+            " WHERE (compte_client.no_compte = " + compte + ") AND (historique.no_compte = " + compte + 
+            ") AND (transaction.type_transaction = historique.type_transaction) "+
+            " AND (client.nif = compte_client.nif)";
+        try
+        {
+            connection = new MySqlConnection(@"Data Source=localhost;port=3309;Initial Catalog=mybank;User Id=root;password=''");
+            connection.Open();
+            command = new MySqlCommand(query, connection);
+            reader = command.ExecuteReader();
+            while (reader.HasRows && reader.Read())
+            {
+                string result = "Nom: " + reader.GetString(reader.GetOrdinal("nom")) + "  Prenom: " 
+                    + reader.GetString(reader.GetOrdinal("prenom")) + "   NIF: " 
+                    + reader.GetInt32(reader.GetOrdinal("nif")) + "  Type de transaction:"
+                    + reader.GetString(reader.GetOrdinal("libele_transaction")) + "   Montant:" 
+                    + reader.GetString(reader.GetOrdinal("montant")) + "  Date: " 
+                    + reader.GetString(reader.GetOrdinal("date_transaction")) + " ";
+                historyResult.Add(result);
+            }
+
+            connection.Close();
+            return true;
+        }
+        catch (MySqlException e)
+        {
+            string error2 = e.Message;
+            connection.Close();
+            return false;
+        }
+
+    }
+
+
 
 
 }

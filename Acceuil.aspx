@@ -19,7 +19,7 @@
                 <li><a href="Deposit.aspx">Depot</a></li>
                 <li><a href="WhitDrawal.aspx">Retrait</a></li>
                 <li><a href="Transfert.aspx">Virement Bancaire</a></li>
-                <li><a href="#">Historique</a></li>
+                <li><a href="History.aspx">Historique</a></li>
             </ul>
         </div>
     </form>

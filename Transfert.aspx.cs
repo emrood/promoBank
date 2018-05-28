@@ -17,6 +17,7 @@ public partial class Transfert : System.Web.UI.Page
 
     }
 
+    // Methode permettant de faire un transfert d'un compte a un autre
     protected void makeTransfert(object sender, EventArgs e)
     {
 

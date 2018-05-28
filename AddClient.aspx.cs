@@ -13,7 +13,7 @@ public partial class AddClient : System.Web.UI.Page
 
     }
 
-
+    // Action du boutton de sauvegarde client
     protected void registerClient(object sender, EventArgs e)
     {
         if ((T_account.SelectedIndex != 0) && 
@@ -25,10 +25,10 @@ public partial class AddClient : System.Web.UI.Page
             (TBadresse.Text != String.Empty) && 
             (TBtelephone.Text != String.Empty))
         {
-            if (DBConnection.registerClient(TBfname.Text, TBlname.Text, listSexe.SelectedValue, int.Parse(TBnif.Text), int.Parse(TBcin.Text), TBadresse.Text, TBtelephone.Text))
+            if (DBConnection.registerClient(TBfname.Text, TBlname.Text, listSexe.SelectedValue, long.Parse(TBnif.Text), long.Parse(TBcin.Text), TBadresse.Text, TBtelephone.Text))
             {
                 DateTime i = DateTime.Now;
-                if(DBConnection.registerAccount(int.Parse(TBnif.Text), T_account.SelectedIndex, float.Parse(TBsolde.Text), i))
+                if(DBConnection.registerAccount(long.Parse(TBnif.Text), T_account.SelectedIndex, float.Parse(TBsolde.Text), i))
                 {
                     info.Text = "Enregistre avec succes";
                     TBfname.Text = "";

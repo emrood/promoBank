@@ -30,31 +30,67 @@ public partial class History : System.Web.UI.Page
                     {
                         LabelInfo.CssClass = "alert alert-success";
                         LabelInfo.Text = "Succès";
-                        stringWriter = new StringWriter();
-                        using (HtmlTextWriter writer = new HtmlTextWriter(stringWriter))
+
+                        TableRow t = new TableRow();
+                        TableCell n = new TableCell();
+                        TableCell p = new TableCell();
+                        TableCell ni = new TableCell();
+                        TableCell l = new TableCell();
+                        TableCell m = new TableCell();
+                        TableCell d = new TableCell();
+                        t.CssClass = "resultRow";
+                        n.CssClass = "mainCell";
+                        p.CssClass = "mainCell";
+                        ni.CssClass = "mainCell";
+                        l.CssClass = "mainCell";
+                        m.CssClass = "mainCell";
+                        d.CssClass = "mainCell";
+                        n.Text = "Nom";
+                        p.Text = "Prenom";
+                        ni.Text = "NIF";
+                        l.Text = "type";
+                        m.Text = "Montant";
+                        d.Text = "Date";
+                        t.Cells.Add(n);
+                        t.Cells.Add(p);
+                        t.Cells.Add(ni);
+                        t.Cells.Add(l);
+                        t.Cells.Add(m);
+                        t.Cells.Add(d);
+                        resultTable.Rows.Add(t);
+                        resultTable.DataBind();
+
+                        foreach (ClientHistory ch in DBConnection.histories)
                         {
-
-                            writer.AddAttribute(HtmlTextWriterAttribute.Class, "historyResult");
-                            writer.RenderBeginTag(HtmlTextWriterTag.Div); // Begin #1
-
-                            writer.AddAttribute(HtmlTextWriterAttribute.Class, "table-responsive");
-                            writer.RenderBeginTag(HtmlTextWriterTag.Table);
-                            foreach (string s in DBConnection.historyResult)
-                            {
-                                writer.RenderBeginTag(HtmlTextWriterTag.Tr);
-                                writer.AddAttribute(HtmlTextWriterAttribute.Class, "bg-primary");
-                                writer.RenderBeginTag(HtmlTextWriterTag.Td);
-                                writer.Write(s);
-                                writer.RenderEndTag();
-                                writer.RenderEndTag();
-                            }
-                            writer.RenderEndTag();
-                           
-                            writer.RenderEndTag(); // End #1
-
+                            TableRow tr = new TableRow();
+                            TableCell nom = new TableCell();
+                            TableCell prenom = new TableCell();
+                            TableCell nif = new TableCell();
+                            TableCell libele = new TableCell();
+                            TableCell montant = new TableCell();
+                            TableCell date = new TableCell();
+                            nom.CssClass = "resultCell";
+                            prenom.CssClass = "resultCell";
+                            nif.CssClass = "resultCell";
+                            libele.CssClass = "resultCell";
+                            montant.CssClass = "resultCell";
+                            date.CssClass = "resultCell";
+                            nom.Text = ch.Nom;
+                            prenom.Text = ch.Prenom;
+                            nif.Text = ch.Nif.ToString();
+                            libele.Text = ch.Libele;
+                            montant.Text = ch.Montant.ToString();
+                            date.Text = ch.Date.ToString();
+                            tr.Cells.Add(nom);
+                            tr.Cells.Add(prenom);
+                            tr.Cells.Add(nif);
+                            tr.Cells.Add(libele);
+                            tr.Cells.Add(montant);
+                            tr.Cells.Add(date);
+                            resultTable.Rows.Add(tr);
+                            resultTable.DataBind();
                         }
 
-                        stringWriter.ToString();
                     }
                     else
                     {

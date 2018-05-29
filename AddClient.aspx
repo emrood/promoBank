@@ -13,8 +13,9 @@
     <link rel="stylesheet" href="style/bootstrap-grid.css"/>
 </head>
 <body>
+    <div class="imgContainer"><img alt="logo" ID="logo" class="myLogo"  src="media/promobank.png" /></div>
     <h2 id="titre" class="display-4" >Nouveau client</h2>
-    <div><a href="Acceuil.aspx">Retour a la page d'acceuil</a></div>
+    <div class="myLink"><a href="Acceuil.aspx">Page d'acceuil</a></div>
     <form id="form1"  runat="server">
         <div class="form_container"  >
 
@@ -126,5 +127,28 @@
             <br />
         </div>
     </form>
+    <style>
+        .myLogo{
+            width: 80px;
+            height: 80px;
+            text-align: center;
+            margin: auto;
+        }
+
+        .imgContainer{
+            margin-top: 50px;
+            width: 100px;
+            margin: auto;
+            
+        }
+
+        .myLink{
+            width: 400px;
+            margin-left: 30px;
+        }
+
+
+    </style>
 </body>
+    
 </html>

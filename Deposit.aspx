@@ -13,8 +13,10 @@
     <link rel="stylesheet" href="style/bootstrap-grid.css"/>
 </head>
 <body>
+    <div class="imgContainer"><img alt="logo" ID="logo" class="myLogo"  src="media/promobank.png" /></div>
     <h2 id="titre" class="display-4" >Realiser un depot</h2>
-    <div><a href="Acceuil.aspx">Page d'acceuil</a></div>
+    <div class="myLink"><a href="Acceuil.aspx">Page d'acceuil</a></div>
+    <marquee direction="left" loop="1" scrolldelay="5ms" behavior="slide" truespeed>
     <form id="form1" runat="server">
         <div class="myContainer">
             <div class="input-group mb-3">
@@ -42,5 +44,28 @@
 
         </div>
     </form>
+        </marquee>
+    <style>
+        .myLogo{
+            width: 80px;
+            height: 80px;
+            text-align: center;
+            margin: auto;
+        }
+
+        .imgContainer{
+            margin-top: 50px;
+            width: 100px;
+            margin: auto;
+            
+        }
+
+        .myLink{
+            width: 400px;
+            margin-left: 30px;
+        }
+
+
+    </style>
 </body>
 </html>

@@ -13,8 +13,9 @@
     <link rel="stylesheet" href="style/bootstrap-grid.css"/>
 </head>
 <body>
+    <div class="imgContainer"><img alt="logo" ID="logo" class="myLogo"  src="media/promobank.png" /></div>
     <h2 id="titre" class="display-4" >Historique client</h2>
-    <div><a href="Acceuil.aspx">Page d'acceuil</a></div>
+    <div class="myLink"><a href="Acceuil.aspx">Page d'acceuil</a></div>
     <form id="form1" runat="server">
         <div class="myContainer" >
             <div class="input-group mb-3">
@@ -33,10 +34,46 @@
             <div id="result" class="historyResult">
                 <asp:Label ID="Label2" runat="server" Text="Label" Visible="false"></asp:Label>
                 <!--Bloc to show result -->
+                <asp:Table ID="resultTable" runat="server"></asp:Table>
              <% OutputDataRows(); %> 
             </div>
             <br />
         </div>
+
+        <style>
+        .myLogo{
+            width: 80px;
+            height: 80px;
+            text-align: center;
+            margin: auto;
+        }
+
+        .imgContainer{
+            margin-top: 50px;
+            width: 100px;
+            margin: auto;
+            
+        }
+
+        .myLink{
+            width: 400px;
+            margin-left: 30px;
+        }
+        .mainCell{
+            width: 150px;
+        }
+
+        .resultCell{
+            width: 150px;
+        }
+
+        .resultRow{
+
+            border: 2px solid green;
+        }
+
+
+    </style>
         
     </form>
 </body>

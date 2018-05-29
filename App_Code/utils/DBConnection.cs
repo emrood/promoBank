@@ -16,7 +16,7 @@ public class DBConnection
     private static String query; // Chaine de caractere qui va contenir les commande de requetes
     public static List<Compte> comptes; // Liste qui sauvegarder les types de compte existant
     public static List<Compte_client> compte_clients; // Liste qui va sauvegarde tous les comptes clients
-    public static List<Historique> histories; // Liste qui va sauvegarder l'historique des transactions
+    public static List<ClientHistory> histories; // Liste qui va sauvegarder l'historique des transactions
     public static List<Transaction> transactions; // Liste qui sauvegarde les types de transactions existant
     public static List<Client> clients; // Liste qui sauvegarde tous les clients
     public static List<string> historyResult; //
@@ -319,7 +319,7 @@ public class DBConnection
     // Methode retournant l'historique de transaction d'un compte en banque | utilisation de jointure entre 5 tables differents
     public static bool loadAccountHistory(int compte)
     {
-        
+        histories = new List<ClientHistory>();
         historyResult = new List<string>();
         query = "SELECT client.nom, client.prenom, client.nif, transaction.libele_transaction, historique.montant, historique.date_transaction" +
             " FROM client, compte_client, historique, transaction, compte" + 
@@ -334,13 +334,14 @@ public class DBConnection
             reader = command.ExecuteReader();
             while (reader.HasRows && reader.Read())
             {
-                string result = "Nom: " + reader.GetString(reader.GetOrdinal("nom")) + "  Prenom: " 
-                    + reader.GetString(reader.GetOrdinal("prenom")) + "   NIF: " 
-                    + reader.GetInt32(reader.GetOrdinal("nif")) + "  Type de transaction:"
-                    + reader.GetString(reader.GetOrdinal("libele_transaction")) + "   Montant:" 
-                    + reader.GetString(reader.GetOrdinal("montant")) + "  Date: " 
-                    + reader.GetString(reader.GetOrdinal("date_transaction")) + " ";
-                historyResult.Add(result);
+                ClientHistory ch = new ClientHistory();
+                ch.Nom = reader.GetString(reader.GetOrdinal("nom"));
+                ch.Prenom = reader.GetString(reader.GetOrdinal("prenom"));
+                ch.Montant = reader.GetFloat(reader.GetOrdinal("montant"));
+                ch.Nif = reader.GetInt32(reader.GetOrdinal("nif"));
+                ch.Libele = reader.GetString(reader.GetOrdinal("libele_transaction"));
+                ch.Date = reader.GetDateTime(reader.GetOrdinal("date_transaction"));
+                histories.Add(ch);
             }
 
             connection.Close();
